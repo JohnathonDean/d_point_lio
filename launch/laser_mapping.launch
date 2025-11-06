@@ -1,0 +1,23 @@
+<launch>
+<!-- Enhanced Laser Mapping Launch File for d_point_lio -->
+
+    <arg name="rviz" default="true" />
+    <arg name="config_file" default="$(find d_point_lio)/config/laser_mapping.yaml" />
+
+    <!-- Load configuration parameters -->
+    <rosparam command="load" file="$(arg config_file)" />
+
+    <!-- Enhanced Laser Mapping Node -->
+    <node pkg="d_point_lio" type="run_mapping" name="laserMapping" output="screen" respawn="true">
+        <remap from="~lidar_topic" to="/livox/lidar" />
+        <remap from="~imu_topic" to="/livox/imu" />
+    </node>
+
+    <!-- Optional: Launch RViz for visualization -->
+    <group if="$(arg rviz)">
+        <node launch-prefix="nice" pkg="rviz" type="rviz" name="rviz"
+              args="-d $(find d_point_lio)/rviz/laser_mapping.rviz"
+              unless="$(eval not exist('$(find d_point_lio)/rviz/laser_mapping.rviz'))" />
+    </group>
+
+</launch>

@@ -1,0 +1,46 @@
+# Enhanced Laser Mapping Configuration for d_point_lio
+# This configuration file provides comprehensive parameters for LiDAR-IMU fusion
+
+common:
+  lid_topic: "/livox/lidar"      # LiDAR data topic (Livox format)
+  imu_topic: "/livox/imu"        # IMU data topic
+  time_sync_en: false            # ONLY turn on when external time synchronization is really not possible
+
+preprocess:
+  lidar_type: 1                  # 1 for Livox serials LiDAR, 2 for Velodyne LiDAR, 3 for ouster LiDAR
+  scan_line: 6                   # Number of scan lines for Livox
+  blind: 4.0                     # Blind spot distance (meters)
+  time_scale: 1e-3               # Time scaling factor for point timestamps
+
+mapping:
+  acc_cov: 0.1                   # Accelerometer covariance
+  gyr_cov: 0.1                   # Gyroscope covariance
+  b_acc_cov: 0.0001              # Accelerometer bias covariance
+  b_gyr_cov: 0.0001              # Gyroscope bias covariance
+  fov_degree: 90.0               # Field of view degree
+  det_range: 450.0               # Detection range (meters)
+  extrinsic_est_en: false        # true: enable the online estimation of IMU-LiDAR extrinsic
+  extrinsic_T: [0.04165, 0.02326, -0.0284]    # Translation from LiDAR to IMU [x, y, z]
+  extrinsic_R: [1, 0, 0,         # Rotation matrix from LiDAR to IMU (row-major)
+               0, 1, 0,
+               0, 0, 1]
+
+publish:
+  path_publish_en: false         # Publish estimated path
+  scan_publish_en: true          # Publish full point cloud
+  scan_effect_pub_en: true       # Publish effective points (features)
+  dense_publish_en: false        # Publish dense global map
+  scan_bodyframe_pub_en: true    # Publish point cloud in IMU body frame
+
+# Feature extraction and processing parameters
+feature_extract_enable: false    # Enable/disable feature extraction
+point_filter_num: 3              # Point filter interval (keep every Nth point)
+max_iteration: 3                 # Maximum iterations for optimization
+filter_size_surf: 0.5            # Surface feature filter size
+filter_size_map: 0.5             # Map filter size
+cube_side_length: 1000.0         # Cube side length for local mapping
+
+# Advanced parameters (for future implementation)
+ivox_grid_resolution: 0.5        # IVox grid resolution
+ivox_nearby_type: 18             # IVox nearby point type (6, 18, 26)
+esti_plane_threshold: 0.1        # Plane estimation threshold

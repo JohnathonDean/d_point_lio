@@ -34,7 +34,7 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 ## System dependencies are found with CMake's conventions
-# find_package(Boost REQUIRED COMPONENTS system)
+find_package(Boost REQUIRED COMPONENTS system)
 find_package(Eigen3 REQUIRED)
 find_package(PCL 1.8 REQUIRED)
 find_package(yaml-cpp REQUIRED)
@@ -51,7 +51,7 @@ find_package(yaml-cpp REQUIRED)
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   CATKIN_DEPENDS geometry_msgs nav_msgs pcl_ros roscpp rospy sensor_msgs std_msgs tf
-  DEPENDS EIGEN3 PCL yaml-cpp
+  DEPENDS EIGEN3 PCL yaml-cpp Boost
   INCLUDE_DIRS include
 )
 
@@ -70,12 +70,14 @@ include_directories(
 add_executable(run_mapping
     src/run_mapping.cpp
     src/laser_mapping.cpp
+    src/simple_preprocess.cpp
 )
 target_link_libraries(run_mapping
   ${catkin_LIBRARIES}
   ${PCL_LIBRARIES}
   yaml-cpp
-  glog  # 添加glog链接库
+  glog
+  ${Boost_LIBRARIES}
 )
 
 

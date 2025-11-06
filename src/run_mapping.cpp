@@ -20,9 +20,9 @@ std::string BacktracePrint() {
 
 void SignalHandler(int sig) {
     // std::cout << "Recieve signal [" << sig << "]" << std::endl;
-    LOG(INFO) << "Recieve signal [" << sig << "]";
+    ROS_INFO("Recieve signal [%d]", sig);
     if (sig == SIGSEGV) {
-        LOG(INFO) << BacktracePrint();
+        ROS_INFO("%s", BacktracePrint().c_str());
     }
     exit(EXIT_FAILURE);
     return;
@@ -56,15 +56,30 @@ int main(int argc, char **argv) {
     ros::init(argc, argv, "point_lio");
     ros::NodeHandle nh;
 
-    auto laser_mapping = std::make_shared<LaserMapping>();
-    laser_mapping->InitROS(nh);
+    auto laser_mapping = std::make_shared<d_point_lio::LaserMapping>();
 
-    ros::Rate rate(50);
+    if (!laser_mapping->InitROS(nh)) {
+        ROS_ERROR("Failed to initialize LaserMapping");
+        return -1;
+    }
+
+    ROS_INFO("Point-LIO initialized successfully, starting processing...");
+
+    // Main processing loop (faster-lio style)
+    ros::Rate rate(200);  // 200Hz processing frequency
     while (ros::ok()) {
         ros::spinOnce();
-        LOG(INFO) << "信息日志";
+
+        // Process sensor data
+        laser_mapping->Run();
+
         rate.sleep();
     }
+
+    ROS_INFO("Point-LIO processing finished, saving final map...");
+
+    // Save final map and cleanup
+    laser_mapping->Finish();
 
     // 关闭glog
     google::ShutdownGoogleLogging();
