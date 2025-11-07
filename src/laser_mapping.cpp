@@ -1,5 +1,4 @@
 #include "d_point_lio/laser_mapping.h"
-#include "d_point_lio/preprocess.h"
 #include <glog/logging.h>
 #include <yaml-cpp/yaml.h>
 #include <pcl/filters/voxel_grid.h>
@@ -248,13 +247,9 @@ void LaserMapping::LivoxPCLCallBack(const livox_ros_driver::CustomMsg::ConstPtr 
 
     last_timestamp_lidar_ = msg->header.stamp.toSec();
 
-    // Process Livox point cloud using Preprocess class
+    // Process Livox point cloud directly
     PointCloudXYZI::Ptr processed_cloud(new PointCloudXYZI());
-    Preprocess preprocessor;
-    preprocessor.point_filter_num = point_filter_num_;
-    preprocessor.blind = blind_;
-    preprocessor.N_SCANS = scan_line_;
-        preprocessor.process(msg, processed_cloud);
+    PreprocessPoints(msg, processed_cloud);
 
     if (processed_cloud->points.size() > 0) {
         lidar_buffer_.push_back(processed_cloud);

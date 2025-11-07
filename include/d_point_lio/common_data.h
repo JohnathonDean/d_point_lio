@@ -64,24 +64,13 @@ typedef pcl::PointCloud<PointXYZI> PointCloudI;
 // Eigen Type Definitions
 // =============================================================================
 
-/**
- * @brief Vector types for ESEKF state representation
- *
- * These vector types are used in the ESEKF manifold definitions for state
- * estimation in Point-LIO.
- */
-typedef MTK::vect<3, double> vect3;
-typedef MTK::vect<1, double> vect1;
-typedef MTK::vect<2, double> vect2;
-
-/**
- * @brief Rotation and SO(3) types for attitude representation
- *
- * SO3 represents the special orthogonal group for 3D rotations, which is
- * fundamental for attitude estimation in robotics.
- */
-typedef MTK::SO3<double> SO3;
-typedef MTK::S2<double, 98090, 10000, 1> S2;
+// =============================================================================
+// MTK Types Section - Removed
+// =============================================================================
+// MTK manifold types have been removed as we now use simplified Eigen-based IESKF
+// The following types are now defined directly in the IESKF class:
+// - IESKFState: Structure containing all state variables
+// - SO3 operations are handled using Eigen rotation matrices
 
 /**
  * @brief Matrix and vector type aliases for convenience
@@ -94,68 +83,34 @@ typedef Vector3d Vec3;                     ///< 3D vector (position, velocity, e
 typedef Matrix4d Mat44;                    ///< 4x4 matrix (homogeneous transform)
 typedef Vector4d Vec4;                     ///< 4D vector (quaternion xyzw)
 typedef Matrix<double, 6, 6> Mat66;        ///< 6x6 matrix (pose covariance)
+typedef Matrix<double, 6, 1> Vec6;         ///< 6D vector (IMU measurement, twist)
 
 // =============================================================================
 // State and Input Definitions for ESEKF
 // =============================================================================
 
-/**
- * @brief State output manifold for use_imu_as_input=false mode
- *
- * This manifold defines the complete state vector for Point-LIO when IMU is used
- * as measurement rather than input. It includes all necessary states for accurate
- * LiDAR-IMU odometry estimation.
- */
-MTK_BUILD_MANIFOLD(state_output,
-    ((vect3, pos))                    ///< Position (x, y, z) in world frame
-    ((SO3, rot))                      ///< Rotation (quaternion) from body to world
-    ((SO3, offset_R_L_I))             ///< LiDAR to IMU rotation offset (extrinsic)
-    ((vect3, offset_T_L_I))           ///< LiDAR to IMU translation offset (extrinsic)
-    ((vect3, vel))                    ///< Velocity (vx, vy, vz) in world frame
-    ((vect3, omg))                    ///< Angular velocity (wx, wy, wz) in body frame
-    ((vect3, acc))                    ///< Acceleration (ax, ay, az) in body frame
-    ((vect3, gravity))                ///< Gravity vector in world frame
-    ((vect3, bg))                     ///< Gyroscope bias
-    ((vect3, ba))                     ///< Accelerometer bias
-);
+// =============================================================================
+// MTK Manifold Definitions - Removed
+// =============================================================================
+// MTK manifold definitions have been removed as we now use simplified Eigen-based IESKF
+// The state structure is now defined in the IESKF class as IESKFState
+// This simplifies the implementation and removes complex manifold dependencies
 
-/**
- * @brief Input manifold for ESEKF
- *
- * Defines the input vector for the ESEKF prediction step, containing the
- * IMU measurements that drive the state propagation.
- */
-MTK_BUILD_MANIFOLD(input_ikfom,
-    ((vect3, acc))                    ///< Linear acceleration measurement
-    ((vect3, gyro))                   ///< Angular velocity measurement
-);
-
-/**
- * @brief Process noise manifold for ESEKF
- *
- * Defines the process noise model for the ESEKF, representing the uncertainty
- * in the state propagation due to model errors and sensor noise.
- */
-MTK_BUILD_MANIFOLD(process_noise_output,
-    ((vect3, vel))                    ///< Velocity process noise
-    ((vect3, ng))                     ///< Gyroscope measurement noise
-    ((vect3, na))                     ///< Accelerometer measurement noise
-    ((vect3, nbg))                    ///< Gyroscope bias random walk noise
-    ((vect3, nba))                    ///< Accelerometer bias random walk noise
-);
+// =============================================================================
+// Remaining MTK Definitions - Removed
+// =============================================================================
+// All MTK manifold definitions have been removed to simplify the implementation
+// The IESKF class now uses standard Eigen types for state representation
 
 // =============================================================================
 // ESEKF Type Definitions
 // =============================================================================
 
-/**
- * @brief ESEKF type with state output and process noise
- *
- * The Error State Extended Kalman Filter (ESEKF) type used for state estimation
- * in Point-LIO. This combines the state manifold with process noise for optimal
- * filtering performance.
- */
-typedef esekfom::esekf<state_output, 30, input_ikfom> esekfom_type;
+// =============================================================================
+// ESEKF Type Definition - Removed
+// =============================================================================
+// esekfom type definition has been removed as we now use simplified Eigen-based IESKF
+// The IESKF class provides its own state estimation functionality without external dependencies
 
 // =============================================================================
 // Message Type Definitions

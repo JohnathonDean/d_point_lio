@@ -18,9 +18,10 @@
 #include <memory>
 #include <Eigen/Eigen>
 
-#include <so3_math.h>
-#include <IKFoM/IKFoM_toolkit/esekfom/esekfom.hpp>
+// #include <so3_math.h>  // Removed - now using simplified Eigen operations
+// #include <IKFoM/IKFoM_toolkit/esekfom/esekfom.hpp>  // Removed - now using simplified IESKF
 #include "d_point_lio/common_data.h"
+#include "d_point_lio/ieskf.h"
 
 using namespace std;
 using namespace Eigen;
@@ -73,7 +74,7 @@ class LaserMapping {
 
     /// ESEKF functions for use_imu_as_input=false mode
     void InitializeState();
-    void ESEKFPrediction(double dt, const input_ikfom &in);
+    void ESEKFPrediction(double dt, const Vec3& acc, const Vec3& gyro);
     void ESEKFUpdateWithLidar();
     void ESEKFUpdateWithIMU();
 
@@ -226,8 +227,9 @@ class LaserMapping {
     Vec3 acc_avr_;
 
     /// ESEKF state estimation
-    esekfom_type kf_output_;
-    state_output state_out_;
+    // Simplified IESKF instance
+    std::shared_ptr<IESKF> ieskf_;
+    IESKFState current_state_;
     bool imu_need_init_ = true;
     bool after_imu_init_ = false;
     double mean_acc_[3] = {0.0, 0.0, 0.0};
