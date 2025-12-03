@@ -66,23 +66,9 @@ include_directories(
   ${yaml-cpp_INCLUDE_DIRS}
 )
 
-
 add_executable(run_mapping
     src/run_mapping.cpp
     src/laser_mapping.cpp
-    src/ieskf.cpp
-)
-
-add_executable(test_ieskf
-    src/test_ieskf.cpp
-    src/ieskf.cpp
-)
-target_link_libraries(test_ieskf
-  ${catkin_LIBRARIES}
-  ${PCL_LIBRARIES}
-  yaml-cpp
-  glog
-  ${Boost_LIBRARIES}
 )
 
 target_link_libraries(run_mapping

@@ -6,6 +6,8 @@
 
 #include "d_point_lio/laser_mapping.h"
 
+using namespace d_point_lio;
+
 std::string BacktracePrint() {
     void* array[20];
     int size = backtrace(array, 20);
