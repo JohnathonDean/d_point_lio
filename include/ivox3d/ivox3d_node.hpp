@@ -6,7 +6,7 @@
 
 #include "hilbert.hpp"
 
-namespace faster_lio {
+namespace d_point_lio {
 
 // squared distance of two pcl points
 template <typename PointT>
@@ -408,4 +408,4 @@ uint32_t IVoxNodePhc<PointT, dim>::CalculatePhcIndex(const PointT& pt) const {
     return idx;
 }
 
-}  // namespace faster_lio
+}  // namespace d_point_lio

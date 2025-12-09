@@ -2,8 +2,8 @@
 // Created by xiang on 2021/7/16.
 //
 
-#ifndef FASTER_LIO_EIGEN_TYPES_H
-#define FASTER_LIO_EIGEN_TYPES_H
+#ifndef D_POINT_LIO_EIGEN_TYPES_H
+#define D_POINT_LIO_EIGEN_TYPES_H
 
 #include <Eigen/Core>
 #include <Eigen/Dense>
@@ -37,7 +37,7 @@ using Mat15d = Eigen::Matrix<double, 15, 15>;
 using Quatd = Eigen::Quaterniond;
 using Quatf = Eigen::Quaternionf;
 
-namespace faster_lio {
+namespace d_point_lio {
 
 /// less of vector
 template <int N>
@@ -79,6 +79,6 @@ constexpr auto less_vec2i = [](const Vec2i& v1, const Vec2i& v2) {
     return v1[0] < v2[0] || (v1[0] == v2[0] && v1[1] < v2[1]);
 };
 
-}  // namespace faster_lio
+}  // namespace d_point_lio
 
 #endif

@@ -2,8 +2,8 @@
 // Created by xiang on 2021/9/16.
 //
 
-#ifndef FASTER_LIO_IVOX3D_H
-#define FASTER_LIO_IVOX3D_H
+#ifndef D_POINT_LIO_IVOX3D_H
+#define D_POINT_LIO_IVOX3D_H
 
 #include <glog/logging.h>
 #include <execution>
@@ -13,7 +13,7 @@
 #include "eigen_types.h"
 #include "ivox3d_node.hpp"
 
-namespace faster_lio {
+namespace d_point_lio {
 
 enum class IVoxNodeType {
     DEFAULT,  // linear ivox
@@ -302,6 +302,6 @@ std::vector<float> IVox<dim, node_type, PointType>::StatGridPoints() const {
     return std::vector<float>{valid_num, ave, max, min, stddev};
 }
 
-}  // namespace faster_lio
+}  // namespace d_point_lio
 
 #endif

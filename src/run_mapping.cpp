@@ -67,7 +67,7 @@ int main(int argc, char **argv) {
 
     ROS_INFO("Point-LIO initialized successfully, starting processing...");
 
-    // Main processing loop (faster-lio style)
+    // Main processing loop (d-point-lio style)
     ros::Rate rate(200);  // 200Hz processing frequency
     while (ros::ok()) {
         ros::spinOnce();
