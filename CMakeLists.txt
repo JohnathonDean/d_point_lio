@@ -69,11 +69,13 @@ include_directories(
 add_executable(run_mapping
     src/run_mapping.cpp
     src/laser_mapping.cpp
+    src/imu_processing.cpp
 )
 
 target_link_libraries(run_mapping
   ${catkin_LIBRARIES}
   ${PCL_LIBRARIES}
+  tbb
   yaml-cpp
   glog
   ${Boost_LIBRARIES}

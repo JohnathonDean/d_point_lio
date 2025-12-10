@@ -20,7 +20,7 @@
 #include <mutex>
 
 #include "d_point_lio/common_data.h"
-#include "d_point_lio/imu_processing.hpp"
+#include "d_point_lio/imu_processing.h"
 #include "d_point_lio/use-ikfom.hpp"
 #include "ivox3d/ivox3d.h"
 
