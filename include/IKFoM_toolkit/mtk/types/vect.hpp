@@ -119,6 +119,10 @@ struct vect : public Eigen::Matrix<_scalar, D, 1, _Options> {
 
     void oplus(MTK::vectview<const scalar, D> vec, scalar scale = 1) { *this += scale * vec; }
 
+    void hat(Eigen::VectorXd& v, Eigen::MatrixXd& res) { std::cout << "wrong idx" << std::endl; }
+    void Jacob_right_inv(Eigen::VectorXd& v, Eigen::MatrixXd& res) { std::cout << "wrong idx" << std::endl; }
+    void Jacob_right(Eigen::VectorXd& v, Eigen::MatrixXd& res) { std::cout << "wrong idx" << std::endl; }
+
     void S2_hat(Eigen::Matrix<scalar, 3, 3>& res) { res = Eigen::Matrix<scalar, 3, 3>::Zero(); }
 
     void S2_Nx_yy(Eigen::Matrix<scalar, 2, 3>& res) {
@@ -233,6 +237,10 @@ struct matrix : public Eigen::Matrix<_scalar, M, N, _Options> {
     void boxplus(MTK::vectview<const scalar, DOF> vec, scalar scale = 1) { *this += scale * base::Map(vec.data()); }
     void boxminus(MTK::vectview<scalar, DOF> res, const matrix& other) const { base::Map(res.data()) = *this - other; }
 
+    void hat(Eigen::VectorXd& v, Eigen::MatrixXd& res) { std::cout << "wrong idx" << std::endl; }
+    void Jacob_right_inv(Eigen::VectorXd& v, Eigen::MatrixXd& res) { std::cout << "wrong idx" << std::endl; }
+    void Jacob_right(Eigen::VectorXd& v, Eigen::MatrixXd& res) { std::cout << "wrong idx" << std::endl; }
+
     void S2_hat(Eigen::Matrix<scalar, 3, 3>& res) { res = Eigen::Matrix<scalar, 3, 3>::Zero(); }
 
     void oplus(MTK::vectview<const scalar, DOF> vec, scalar scale = 1) { *this += scale * base::Map(vec.data()); }
@@ -299,6 +307,10 @@ struct Scalar {
 
     void boxplus(MTK::vectview<const scalar, DOF> vec, scalar scale = 1) { value += scale * vec[0]; }
     void boxminus(MTK::vectview<scalar, DOF> res, const Scalar& other) const { res[0] = *this - other; }
+
+    void hat(Eigen::VectorXd& v, Eigen::MatrixXd& res) { std::cout << "wrong idx" << std::endl; }
+    void Jacob_right_inv(Eigen::VectorXd& v, Eigen::MatrixXd& res) { std::cout << "wrong idx" << std::endl; }
+    void Jacob_right(Eigen::VectorXd& v, Eigen::MatrixXd& res) { std::cout << "wrong idx" << std::endl; }
 };
 
 /**
@@ -326,6 +338,10 @@ struct PositiveScalar {
     }
 
     void oplus(MTK::vectview<const scalar, DOF> vec, scalar scale = 1) { value *= std::exp(scale * vec[0]); }
+
+    void hat(Eigen::VectorXd& v, Eigen::MatrixXd& res) { std::cout << "wrong idx" << std::endl; }
+    void Jacob_right_inv(Eigen::VectorXd& v, Eigen::MatrixXd& res) { std::cout << "wrong idx" << std::endl; }
+    void Jacob_right(Eigen::VectorXd& v, Eigen::MatrixXd& res) { std::cout << "wrong idx" << std::endl; }
 
     void S2_hat(Eigen::Matrix<scalar, 3, 3>& res) { res = Eigen::Matrix<scalar, 3, 3>::Zero(); }
 
@@ -371,6 +387,10 @@ struct Complex : public std::complex<_scalar> {
     }
 
     void S2_hat(Eigen::Matrix<scalar, 3, 3>& res) { res = Eigen::Matrix<scalar, 3, 3>::Zero(); }
+
+    void hat(Eigen::VectorXd& v, Eigen::MatrixXd& res) { std::cout << "wrong idx" << std::endl; }
+    void Jacob_right_inv(Eigen::VectorXd& v, Eigen::MatrixXd& res) { std::cout << "wrong idx" << std::endl; }
+    void Jacob_right(Eigen::VectorXd& v, Eigen::MatrixXd& res) { std::cout << "wrong idx" << std::endl; }
 
     void oplus(MTK::vectview<const scalar, DOF> vec, scalar scale = 1) {
         Base::real() += scale * vec[0];

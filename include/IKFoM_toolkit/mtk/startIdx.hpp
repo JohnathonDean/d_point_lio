@@ -238,12 +238,12 @@ vectview<typename Base::scalar, T::DOF> subvector_impl(vectview<typename Base::s
  * Get the subvector corresponding to a sub-manifold from a bigger vector.
  */
 template <class Scalar, int BaseDIM, class Base, class T, int idx, int dim>
-vectview<Scalar, T::DIM> subvector_(vectview<Scalar, BaseDIM> vec, SubManifold<T, idx, dim> Base::*ptr) {
+vectview<Scalar, T::DIM> subvector_(vectview<Scalar, BaseDIM> vec, SubManifold<T, idx, dim> Base::* ptr) {
     return subvector_impl_(vec, ptr);
 }
 
 template <class Scalar, int BaseDOF, class Base, class T, int idx, int dim>
-vectview<Scalar, T::DOF> subvector(vectview<Scalar, BaseDOF> vec, SubManifold<T, idx, dim> Base::*ptr) {
+vectview<Scalar, T::DOF> subvector(vectview<Scalar, BaseDOF> vec, SubManifold<T, idx, dim> Base::* ptr) {
     return subvector_impl(vec, ptr);
 }
 
@@ -252,24 +252,24 @@ vectview<Scalar, T::DOF> subvector(vectview<Scalar, BaseDOF> vec, SubManifold<T,
  * Base::*)
  */
 template <class Scalar, int BaseDOF, class Base, class T, int idx, int dim>
-vectview<Scalar, T::DOF> subvector(Eigen::Matrix<Scalar, BaseDOF, 1>& vec, SubManifold<T, idx, dim> Base::*ptr) {
+vectview<Scalar, T::DOF> subvector(Eigen::Matrix<Scalar, BaseDOF, 1>& vec, SubManifold<T, idx, dim> Base::* ptr) {
     return subvector_impl(vectview<Scalar, BaseDOF>(vec), ptr);
 }
 
 template <class Scalar, int BaseDIM, class Base, class T, int idx, int dim>
-vectview<Scalar, T::DIM> subvector_(Eigen::Matrix<Scalar, BaseDIM, 1>& vec, SubManifold<T, idx, dim> Base::*ptr) {
+vectview<Scalar, T::DIM> subvector_(Eigen::Matrix<Scalar, BaseDIM, 1>& vec, SubManifold<T, idx, dim> Base::* ptr) {
     return subvector_impl_(vectview<Scalar, BaseDIM>(vec), ptr);
 }
 
 template <class Scalar, int BaseDIM, class Base, class T, int idx, int dim>
 vectview<const Scalar, T::DIM> subvector_(const Eigen::Matrix<Scalar, BaseDIM, 1>& vec,
-                                          SubManifold<T, idx, dim> Base::*ptr) {
+                                          SubManifold<T, idx, dim> Base::* ptr) {
     return subvector_impl_(vectview<const Scalar, BaseDIM>(vec), ptr);
 }
 
 template <class Scalar, int BaseDOF, class Base, class T, int idx, int dim>
 vectview<const Scalar, T::DOF> subvector(const Eigen::Matrix<Scalar, BaseDOF, 1>& vec,
-                                         SubManifold<T, idx, dim> Base::*ptr) {
+                                         SubManifold<T, idx, dim> Base::* ptr) {
     return subvector_impl(vectview<const Scalar, BaseDOF>(vec), ptr);
 }
 
@@ -290,7 +290,7 @@ vectview<const typename Base::scalar, T::DIM> subvector_impl_(
 
 template <class Scalar, int BaseDOF, class Base, class T, int idx, int dim>
 vectview<const Scalar, T::DOF> subvector(const vectview<const Scalar, BaseDOF> cvec,
-                                         SubManifold<T, idx, dim> Base::*ptr) {
+                                         SubManifold<T, idx, dim> Base::* ptr) {
     return subvector_impl(cvec, ptr);
 }
 

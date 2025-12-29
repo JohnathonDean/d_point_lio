@@ -106,7 +106,7 @@ struct SubManifold : public T {
 
     //! Construct from internal type
     // explicit
-    SubManifold(const T& t) : T(t){};
+    SubManifold(const T& t) : T(t) {};
 
     //! inherit assignment operator
     using T::operator=;

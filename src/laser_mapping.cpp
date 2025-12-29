@@ -198,7 +198,11 @@ void LaserMapping::Run() {
     if (flg_first_scan_) {
         
     }
+    
+    /*** downsample the feature points in a scan ***/
 
+
+    /*** initialize the map ***/
 
 
 }

@@ -190,7 +190,7 @@ void ImuProcess::Process(const MeasureGroup &meas, esekfom::esekf<state_ikfom, 3
         IMUInit(meas, kf_state, init_iter_num_);
 
         state_ikfom imu_state = kf_state.get_x();
-        if (init_iter_num_ > MAX_INI_COUNT) {
+        if (init_iter_num_ > MAX_INI_COUNT) {   // 接收到IMU数据超过最大，认为初始化完成
             // 对加速度计协方差进行重力归一化修正
             cov_acc_ *= pow(G_m_s2 / mean_acc_.norm(), 2);
             // 初始化完成
